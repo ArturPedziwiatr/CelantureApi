@@ -5,7 +5,8 @@ import { Keys } from '../bootstrap/keys.js'
 export const routerCelantur = 
   (controller = container.get(Keys.Controller.Celanture)) => {
     const route = express.Router()
-    route.post('/file', (req, res) => controller.postFile(req, res))
+    route.get('/list', (req, res) => controller.getAllFiles(req, res))
+    route.get('/file/:id/instance-mask', (req, res) => controller.postFile(req, res))
     return route
   }
 // router.get('/file/:id/anonymised', )

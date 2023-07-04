@@ -10,17 +10,18 @@ export class CelantureMiddleware {
 
   authorization = async (req, res, next) => {
     try {
-      const data = await fetch(
-        path.join(this.appConfig.getCelanturURL(), 'signin/'),
-        {
-          method: 'post',
-          body: this.appConfig.getCelanturCredential(),
-        }
-      );
-      const token = (await data.json()).AuthenticationResult.AccessToken;
-      req.auth = {
-        Bearer: token,
-      };
+      // const data = await fetch(
+      //   `${this.appConfig.getCelanturURL()}/signin`,
+      //   {
+      //     method: 'post',
+      //     body: this.appConfig.getCelanturCredential(),
+      //   }
+      // );
+      // const token = (await data.json()).AuthenticationResult.AccessToken;
+
+      // req.auth = {
+      //   Bearer: token,
+      // };
       next();
     } catch (err) {
       console.error(err);
