@@ -2,30 +2,21 @@ import path from 'path';
 import fetch from 'node-fetch';
 import { container } from '../../event/Inversify.js';
 import { Keys } from '../../bootstrap/keys.js';
+import axios from 'axios';
+import { axiosError } from '../axiosError/axiosError.js';
 
 export class CelantureMiddleware {
   constructor(appConfig = container.get(Keys.Config)) {
     this.appConfig = appConfig;
   }
 
-  authorization = async (req, res, next) => {
-    try {
-      // const data = await fetch(
-      //   `${this.appConfig.getCelanturURL()}/signin`,
-      //   {
-      //     method: 'post',
-      //     body: this.appConfig.getCelanturCredential(),
-      //   }
-      // );
-      // const token = (await data.json()).AuthenticationResult.AccessToken;
-
-      // req.auth = {
-      //   Bearer: token,
-      // };
-      next();
-    } catch (err) {
-      console.error(err);
-      next();
-    }
-  };
+  authorization = async (req, res, next) => axios
+      .post(
+        `${this.appConfig.getCelanturURL()}/signin`,
+        this.appConfig.getCelanturCredential()
+      )
+      .then((res) => res.data.AuthenticationResult.AccessToken)
+      .then((token) => req.headers = { Authorization: token })
+      .catch((err) => res.send(axiosError(err)))
+      .finally(() => next());
 }

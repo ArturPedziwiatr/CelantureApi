@@ -6,7 +6,11 @@ export const routerCelantur =
   (controller = container.get(Keys.Controller.Celanture)) => {
     const route = express.Router()
     route.get('/list', (req, res) => controller.getAllFiles(req, res))
-    route.get('/file/:id/instance-mask', (req, res) => controller.postFile(req, res))
+    route.get('/file/:id/instance-mask', (req, res) => controller.getMetadata(req, res))
+    route.get('/file/:id/metadata', (req, res) => controller.getMetadata(req, res))
+    route.get('/file/:id/binarymask', (req, res) => controller.getMetadata(req, res))
+    route.get('/file/:id/orginal', (req, res) => controller.getMetadata(req, res))
+    route.get('/file/:id/anonymized', (req, res) => controller.getMetadata(req, res))
     return route
   }
 // router.get('/file/:id/anonymised', )

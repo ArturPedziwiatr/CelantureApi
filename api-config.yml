@@ -1,1 +1,12 @@
-
+token:
+  mapBox: 'pk.eyJ1IjoiZmFrZXVzZXJnaXRodWIiLCJhIjoiY2pwOGlneGI4MDNnaDN1c2J0eW5zb2ZiNyJ9.mALv0tCpbYUPtzT7YysA2g'
+  cesium: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlOTQ4OTNmZC03ZGY1LTQ0YTEtYjE4Ni1hNmZmY2EwODIzMTUiLCJpZCI6MTQ4NDU5LCJpYXQiOjE2ODc0MTcwOTN9.6qR4o6tNAeRydlFPkF8l_GdBaVvZ5yQBMH3p3xnvOmQ'
+graph:
+  token: '8cc21421-1213-4576-aaf2-5c2f9c9ed478'
+  url: 'https://graphhopper.com/api/1'
+celantur:
+  username: 'arturitu99@gmail.com'
+  password: 'DAWIdek99!'
+  url: 'http://api.celantur.com/v1'
+google:
+  apiKey: 'AIzaSyAK3acjRHsFT37wbEN9ktFwm_aQMEDRACw'
