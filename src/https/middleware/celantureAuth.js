@@ -1,5 +1,3 @@
-import path from 'path';
-import fetch from 'node-fetch';
 import { container } from '../../event/Inversify.js';
 import { Keys } from '../../bootstrap/keys.js';
 import axios from 'axios';

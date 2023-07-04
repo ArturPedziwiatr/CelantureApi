@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import path from 'path';
 import fs from 'fs';
 import { Keys } from '../../bootstrap/keys.js';
 import { container } from '../../event/Inversify.js';

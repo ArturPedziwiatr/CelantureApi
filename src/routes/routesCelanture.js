@@ -13,8 +13,3 @@ export const routerCelantur =
     route.get('/file/:id/anonymized', (req, res) => controller.getMetadata(req, res))
     return route
   }
-// router.get('/file/:id/anonymised', )
-// router.get('/file/:id/binary', )
-// router.get('/file/:id/instance', )
-// router.get('/file/:id/metadata', )
-//routerCelantur.post('/file', controller.postFile)
