@@ -3,7 +3,10 @@ import { container } from '../event/Inversify.js'
 import { Keys } from '../bootstrap/keys.js'
 
 export const routerCelantur = 
-  (controller = container.get(Keys.Celanture.Controller)) => {
+  (
+    controller = container.get(Keys.Celanture.Controller),
+    multer = container.get(Keys.Multer),
+  ) => {
     const route = express.Router()
     route.get('/list', (req, res) => controller.getAllFiles(req, res))
     route.get('/file/:id/instance-mask', (req, res) => controller.getInstanceMask(req, res))
@@ -14,7 +17,7 @@ export const routerCelantur =
     route.get('/file/:id/status', (req, res) => controller.getStatus(req, res))
     route.post(
       '/file',
-      container.get(Keys.Multer).filesUpload,
+      multer.filesUpload,
       (req, res) => controller.postFile(req, res)
     )
     return route

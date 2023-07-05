@@ -14,15 +14,12 @@ export class MulterMIddleware {
           if (err) {
             throw err
           }
-          if (!req.files) {
-            throw new FileNotExistsError('File does not exists')
-          }
-          console.log(req.files[0]);
+          console.log(req.files);
           Object.assign(req.query, {
             name: req.files[0].originalname
           })
           Object.assign(req.body, {
-            data: fs.readFileSync(`./data/${req.files[0].filename}`)
+            data: JSON.stringify(fs.readFileSync(`./data/${req.files[0].filename}`))
           })
           fs.unlink(`./data/${req.files[0].filename}`, (err) => {
             if (err) {
