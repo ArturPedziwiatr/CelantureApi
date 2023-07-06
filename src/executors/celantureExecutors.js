@@ -1,23 +1,33 @@
 import axios from 'axios'
+import BuildUrl from 'build-url'
 import { Keys } from '../bootstrap/keys.js'
 import { container } from '../event/Inversify.js'
 import { axiosError } from '../https/axiosError/axiosError.js'
+import { getFileAndRemove } from '../event/filesMenager.js'
 
 export class CelantureExecutors {
   constructor(appconfig = container.get(Keys.Config)) {
     this.appconfig = appconfig
   }
 
-  async postFile(req, res) {
+  async postFile(req, res, path = req.path) {
     try {
-      const { headers, query, body, auth } = req
-      console.info(`https://api.celantur.com/v1/file?method=blur&debug=True&person=True`)
+      const { headers, query, fileMetadata } = req
+      const url = BuildUrl(this.appconfig.getCelanturURL(), {
+        path,
+        queryParams: query,
+      })
+      console.info(url)
       const { data } = await axios.post(
-        `${this.appconfig.getCelanturURL()}${req.path}`,
-        { headers, body }
+        url,
+        getFileAndRemove(fileMetadata.path),
+        { headers }
       )
 
-      return data
+      return {
+        id: data.file_id,
+        ...data,
+      }
     } catch (err) {
       res.send(axiosError(err))
     }
@@ -26,14 +36,13 @@ export class CelantureExecutors {
   async getMetadata(req, res) {
     console.info(`${this.appconfig.getCelanturURL()}${req.path}`)
     try {
-      const { data } = await axios
-      .get(
+      const { data } = await axios.get(
         `${this.appconfig.getCelanturURL()}${req.path}`,
-        { headers: req.headers },
+        { headers: req.headers }
       )
 
       return data
-    } catch(err) {
+    } catch (err) {
       res.send(axiosError(err))
     }
   }
@@ -43,24 +52,39 @@ export class CelantureExecutors {
     try {
       const { data } = await axios.get(
         `${this.appconfig.getCelanturURL()}${req.path}`,
-        { headers: req.headers, responseType: 'arraybuffer'},
+        { headers: req.headers, responseType: 'arraybuffer' }
       )
       return data
-    } catch(err) {
+    } catch (err) {
       res.send(axiosError(err))
-    } 
+    }
   }
 
-  async getStatus(req, res) {
-    console.info(`${this.appconfig.getCelanturURL()}${req.path}`)
+  async getStatus(req, res, path = req.path) {
     try {
-      const { data } = await axios.get(
-        `${this.appconfig.getCelanturURL()}${req.path}`,
-        { headers: req.headers, query: req.query },
-      )
-      return data
-    } catch(err) {
+      const url = BuildUrl(this.appconfig.getCelanturURL(), {
+        path,
+        queryParams: req.query,
+      })
+      console.info(url)
+      const { data } = await axios.get(url, { headers: req.headers })
+      return { status: data.file_status }
+    } catch (err) {
       res.send(axiosError(err))
-    } 
+    }
+  }
+
+  async getAnonymised(req, res, path = req.path) {
+    try {
+      const url = BuildUrl(this.appconfig.getCelanturURL(), { path })
+      console.info(url)
+      const { data } = await axios.get(url, {
+        headers: req.headers,
+        responseType: 'arraybuffer',
+      })
+      return data
+    } catch (err) {
+      res.send(axiosError(err))
+    }
   }
 }
