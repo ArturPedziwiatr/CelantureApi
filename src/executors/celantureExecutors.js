@@ -33,11 +33,12 @@ export class CelantureExecutors {
     }
   }
 
-  async getMetadata(req, res) {
-    console.info(`${this.appconfig.getCelanturURL()}${req.path}`)
+  async get(req, res, path = req.path) {
     try {
+      const url = BuildUrl(this.appconfig.getCelanturURL(), { path })
+      console.info(url)
       const { data } = await axios.get(
-        `${this.appconfig.getCelanturURL()}${req.path}`,
+        url,
         { headers: req.headers }
       )
 
@@ -47,34 +48,7 @@ export class CelantureExecutors {
     }
   }
 
-  async getMask(req, res) {
-    console.info(`${this.appconfig.getCelanturURL()}${req.path}`)
-    try {
-      const { data } = await axios.get(
-        `${this.appconfig.getCelanturURL()}${req.path}`,
-        { headers: req.headers, responseType: 'arraybuffer' }
-      )
-      return data
-    } catch (err) {
-      res.send(axiosError(err))
-    }
-  }
-
-  async getStatus(req, res, path = req.path) {
-    try {
-      const url = BuildUrl(this.appconfig.getCelanturURL(), {
-        path,
-        queryParams: req.query,
-      })
-      console.info(url)
-      const { data } = await axios.get(url, { headers: req.headers })
-      return { status: data.file_status }
-    } catch (err) {
-      res.send(axiosError(err))
-    }
-  }
-
-  async getAnonymised(req, res, path = req.path) {
+  async getFile(req, res, path = req.path) {
     try {
       const url = BuildUrl(this.appconfig.getCelanturURL(), { path })
       console.info(url)
@@ -83,6 +57,20 @@ export class CelantureExecutors {
         responseType: 'arraybuffer',
       })
       return data
+    } catch (err) {
+      res.send(axiosError(err))
+    }
+  }
+
+  async getWithQuery(req, res, path = req.path) {
+    try {
+      const url = BuildUrl(this.appconfig.getCelanturURL(), {
+        path,
+        queryParams: req.query,
+      })
+      console.info(url)
+      const { data } = await axios.get(url, { headers: req.headers })
+      return { status: data.file_status }
     } catch (err) {
       res.send(axiosError(err))
     }

@@ -23,7 +23,7 @@ export class CelantureController {
 
   async getInstanceMask(req, res) {
     try {
-      const result = await this.executors.getMask(req, res)
+      const result = await this.executors.getFile(req, res)
       res.send(result)
     } catch {
       res.send('sad')
@@ -32,7 +32,7 @@ export class CelantureController {
 
   async getBinaryMask(req, res) {
     try {
-      const result = await this.executors.getMask(req, res)
+      const result = await this.executors.getFile(req, res)
       res.send(result)
     } catch {
       res.send('sad')
@@ -41,7 +41,7 @@ export class CelantureController {
 
   async getMetadata(req, res) {
     try {
-      const result = await this.executors.getMetadata(req, res)
+      const result = await this.executors.get(req, res)
       res.send(result)
     } catch {
       res.send('sad')
@@ -58,14 +58,7 @@ export class CelantureController {
 
   async getAnonymised(req, res) {
     try {
-      // const file = await this.executors.postFile(req, res, '/file')
-      // if (!file) throw new Error('Cannot uploaded file')
-
-      // await asyncFunction(3000)
-      // file = await this.executors.getStatus(req, res, `/file/${file.id}/status`)
-      // console.info(file)
-
-      const result = await this.executors.getAnonymised(req, res)
+      const result = await this.executors.getFile(req, res)
       fs.writeFileSync('data/asdf.jpg',result)
       res.send('inprogress')
     } catch (err) {
@@ -75,7 +68,7 @@ export class CelantureController {
 
   async getStatus(req, res) {
     try {
-      const result = await this.executors.getStatus(req, res)
+      const result = await this.executors.get(req, res)
       res.send(result)
     } catch {
       res.send('sad')
@@ -84,7 +77,7 @@ export class CelantureController {
 
   async getAllFiles(req, res) {
     try {
-      const result = await this.executors.getStatus(req, res)
+      const result = await this.executors.getWithQuery(req, res)
       res.send(result)
     } catch {
       res.send('sad')
