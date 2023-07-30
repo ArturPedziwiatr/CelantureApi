@@ -14,7 +14,6 @@ export class CelantureController {
   async postFile(req, res) {
     try {
       const {url, body, headers, query} = req
-      console.log({url, body, headers, query})
       const result = await this.executors.postFile(req,res)
       res.send(result)
     } catch {

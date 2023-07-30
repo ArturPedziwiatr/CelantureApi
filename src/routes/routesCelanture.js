@@ -8,17 +8,71 @@ export const routerCelantur =
     multer = container.get(Keys.Multer),
   ) => {
     const route = express.Router()
-    route.get('/list', (req, res) => controller.getAllFiles(req, res))
-    route.get('/file/:id/instance-mask', (req, res) => controller.getInstanceMask(req, res))
-    route.get('/file/:id/binary-mask', (req, res) => controller.getBinaryMask(req, res))
-    route.get('/file/:id/metadata', (req, res) => controller.getMetadata(req, res))
-    route.get('/file/:id/orginal', (req, res) => controller.getOrginal(req, res))
-    route.get('/file/:id/anonymised', (req, res) => controller.getAnonymised(req, res))
-    route.get('/file/:id/status', (req, res) => controller.getStatus(req, res))
+    route.get(
+      '/list',
+      [
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.getAllFiles(req, res),
+    )
+
+    route.get(
+      '/file/:id/instance-mask',
+      [
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.getInstanceMask(req, res),
+    )
+
+    route.get(
+      '/file/:id/binary-mask',
+      [
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.getBinaryMask(req, res),
+    )
+
+    route.get(
+      '/file/:id/metadata',
+      [
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.getMetadata(req, res),
+    )
+
+    route.get(
+      '/file/:id/orginal',
+      [
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.getOrginal(req, res),
+    )
+
+    route.get(
+      '/file/:id/anonymised',
+      [
+        container.get(Keys.Multer).filesUpload,
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.getAnonymised(req, res),
+    )
+
+    route.get(
+      '/file/:id/status',
+      [
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.getStatus(req, res),
+    )
+
     route.post(
       '/file',
-      multer.filesUpload,
-      (req, res) => controller.postFile(req, res)
+      [
+        container.get(Keys.Multer).filesUpload,
+        container.get(Keys.Celanture.Middleware).authorization,
+      ],
+      (req, res) => controller.postFile(req, res),
     )
+
     return route
   }

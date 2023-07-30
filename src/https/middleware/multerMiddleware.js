@@ -11,21 +11,10 @@ export class MulterMIddleware {
     try {
       this.upload.any()(req, res, (err) => {
         try {
-          if (err) {
-            throw err
-          }
-          console.log(req.files);
-          Object.assign(req.query, {
-            name: req.files[0].originalname
-          })
-          Object.assign(req.body, {
-            data: JSON.stringify(fs.readFileSync(`./data/${req.files[0].filename}`))
-          })
-          fs.unlink(`./data/${req.files[0].filename}`, (err) => {
-            if (err) {
-              throw err
-            }
-          })
+          if (err) throw err
+          if (req.query) Object.assign(req.query, { name: req.files[0].originalname })
+          if (!req.query) req.query = { name: req.files[0].originalname }
+          Object.assign(req, { fileMetadata: req.files[0] })
           next()
         } catch (err) {
           res.send(err)

@@ -1,4 +1,6 @@
+import fs from 'fs'
 import axios from 'axios'
+import BuildUrl from 'build-url'
 import { Keys } from '../bootstrap/keys.js'
 import { container } from '../event/Inversify.js'
 import { axiosError } from '../https/axiosError/axiosError.js'
@@ -10,15 +12,25 @@ export class CelantureExecutors {
 
   async postFile(req, res) {
     try {
-      const { headers, query, body, auth } = req
-      console.info(`https://api.celantur.com/v1/file?method=blur&debug=True&person=True`)
+      const { headers, query: queryParams, fileMetadata, path }  = req
+      console.log(queryParams);
+      const file = fs.readFileSync(fileMetadata.path)
+      const url = BuildUrl(this.appconfig.getCelanturURL(),{
+        path,
+        queryParams
+      })
+      console.info(url)
+      fs.unlink(fileMetadata.path, (err) => {
+        if (err) throw err 
+      })
       const { data } = await axios.post(
-        `${this.appconfig.getCelanturURL()}${req.path}`,
-        { headers, body }
+        url,
+        file,
+        { headers }
       )
-
-      return data
+      return { file_id } = data
     } catch (err) {
+      console.error(err.data);
       res.send(axiosError(err))
     }
   }
