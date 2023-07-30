@@ -1,4 +1,5 @@
-import { routerCelantur } from './routesCelanture.js';
+import { routesCelantur } from './routesCelanture.js';
+import { routesWFS } from './routesWFS.js'
 import { container } from '../event/Inversify.js';
 import { Keys } from '../bootstrap/keys.js';
 
@@ -12,6 +13,7 @@ export class RouterMenager {
       console.log(req.body);
       res.send('Everything is good');
     });
-    app.use('/v1/celantur', routerCelantur());
+    app.use('/v1/celantur', routesCelantur());
+    app.use('/v1/wfs', routesWFS());
   }
 }
