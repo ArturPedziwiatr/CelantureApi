@@ -1,0 +1,12 @@
+token:
+  mapBox: ''
+  cesium: ''
+graph:
+  token: ''
+  url: ''
+celantur:
+  username: ''
+  password: ''
+  url: ''
+google:
+  apiKey: ''
