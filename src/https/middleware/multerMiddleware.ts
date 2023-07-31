@@ -1,15 +1,20 @@
-import multer from 'multer'
-import fs from 'fs'
+import multer, { Multer } from 'multer'
+import { Response } from 'express-serve-static-core';
+import { NextFunction } from 'express'
+import { IRequestFile } from '@/interface/request/IRequestFile';
+import { injectable } from 'inversify';
 
+@injectable()
 export class MulterMIddleware {
+  private upload: Multer
   constructor() {
     this.upload = multer({ dest: 'data/' })
   }
 
-  filesUpload = (req, res, next) => {
+  filesUpload = (req: IRequestFile, res: Response, next: NextFunction) => {
     req.setTimeout(0)
     try {
-      this.upload.any()(req, res, (err) => {
+      this.upload.any()(req, res, (err: any) => {
         try {
           if (err) throw err
           if (req.query) Object.assign(req.query, { name: req.files[0].originalname })
@@ -21,7 +26,7 @@ export class MulterMIddleware {
         }
       })
     } catch (e) {
-      res.send(err)
+      res.send(e)
     }
   }
 }

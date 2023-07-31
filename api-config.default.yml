@@ -1,6 +1,7 @@
-token:
-  mapBox: ''
-  cesium: ''
+mapBox:
+  token: ''
+cesium:
+  token: ''
 graph:
   token: ''
   url: ''

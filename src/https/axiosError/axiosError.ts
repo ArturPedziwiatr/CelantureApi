@@ -1,4 +1,4 @@
-export const axiosError = (err) => {
+export const axiosError = (err: any) => {
   try {
     const { response } = err
     const { data } = response

@@ -1,0 +1,105 @@
+{
+  "extends": [
+      "tslint:recommended",
+      "tslint-eslint-rules"
+  ],
+  "rules": {
+      "class-name": true,
+      "one-line": [
+          true,
+          "check-catch",
+          "check-finally",
+          "check-open-brace",
+          "check-else",
+          "check-whitespace"
+      ],
+      "variable-name": [
+          true,
+          "ban-keywords",
+          "check-format",
+          "allow-leading-underscore"
+      ],
+      "brace-style": [
+          true,
+          "1tbs",
+          {
+              "allowSingleLine": true
+          }
+      ],
+      "comment-format": [
+          true,
+          "check-space"
+      ],
+      "arrow-parens": false,
+      "arrow-return-shorthand": [
+          true
+      ],
+      "indent": [
+          true,
+          "spaces"
+      ],
+      "no-var-keyword": true,
+      "no-empty": true,
+      "no-eval": true,
+      "quotemark": [
+          true,
+          "single",
+          "avoid-escape"
+      ],
+      "semicolon": [
+          true,
+          "always",
+          "ignore-bound-class-methods"
+      ],
+      "object-curly-spacing": true,
+      "whitespace": [
+          true,
+          "check-branch",
+          "check-decl",
+          "check-operator",
+          "check-module",
+          "check-separator",
+          "check-type"
+      ],
+      "typedef": [
+          true,
+          "call-signature",
+          "parameter",
+          "property-declaration"
+      ],
+      "typedef-whitespace": [
+          true,
+          {
+              "call-signature": "nospace",
+              "index-signature": "nospace",
+              "parameter": "nospace",
+              "property-declaration": "nospace",
+              "variable-declaration": "nospace"
+          },
+          {
+              "call-signature": "onespace",
+              "index-signature": "onespace",
+              "parameter": "onespace",
+              "property-declaration": "onespace",
+              "variable-declaration": "onespace"
+          }
+      ],
+      "curly": [
+          true,
+          "ignore-same-line"
+      ],
+      "no-console": [
+          true
+      ],
+      "no-internal-module": true,
+      "no-null-keyword": false,
+      "prefer-const": true,
+      "no-switch-case-fall-through": true,
+      "triple-equals": true,
+      "jsdoc-format": true,
+      "ordered-imports": false,
+      "max-line-length": [true, 155],
+      "object-literal-sort-keys": false,
+      "no-angle-bracket-type-assertion": true
+  }
+}

@@ -1,11 +1,9 @@
-data/
-**/node_modules
-node_modules/
+data
 node_modules
-node_modules/*
 api-config.yml
 dist-ssr
 dist
+build
 *.local
 
 
