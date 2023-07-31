@@ -2,16 +2,17 @@ import fs from 'fs'
 import { inject, injectable } from 'inversify'
 import { MapTypes } from '@MapTypes'
 import { IAppConfig } from '@Interface/config/IAppConfig'
-import { Request, Response } from 'express-serve-static-core';
+import { Request, Response } from 'express-serve-static-core'
+import { ICelanturController } from '@Interface/celantur/ICelanturController'
 
 @injectable()
-export class CelantureController {
+export class CelantureController implements ICelanturController {
   constructor(
     @inject(MapTypes.Config) protected appConfig: IAppConfig,
     @inject(MapTypes.Executors.Celanture) protected celanturExecutors: any,
   ) {}
 
-  async postFile(req: Request, res: Response) {
+  async postFile(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.celanturExecutors.postFile(req,res)
       res.send(result)
@@ -20,7 +21,7 @@ export class CelantureController {
     }
   }
 
-  async getInstanceMask(req: Request, res: Response) {
+  async getInstanceMask(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.celanturExecutors.getFile(req, res)
       res.send(result)
@@ -29,7 +30,7 @@ export class CelantureController {
     }
   }
 
-  async getBinaryMask(req: Request, res: Response) {
+  async getBinaryMask(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.celanturExecutors.getFile(req, res)
       res.send(result)
@@ -38,7 +39,7 @@ export class CelantureController {
     }
   }
 
-  async getMetadata(req: Request, res: Response) {
+  async getMetadata(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.celanturExecutors.get(req, res)
       res.send(result)
@@ -47,7 +48,7 @@ export class CelantureController {
     }
   }
 
-  async getOrginal(req: Request, res: Response) {
+  async getOrginal(req: Request, res: Response): Promise<void> {
     try {
       res.send('todo')
     } catch {
@@ -55,7 +56,7 @@ export class CelantureController {
     }
   }
 
-  async getAnonymised(req: Request, res: Response) {
+  async getAnonymised(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.celanturExecutors.getFile(req, res)
       fs.writeFileSync('data/asdf.jpg',result)
@@ -65,7 +66,7 @@ export class CelantureController {
     }
   }
 
-  async getStatus(req: Request, res: Response) {
+  async getStatus(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.celanturExecutors.get(req, res)
       res.send(result)
@@ -74,7 +75,7 @@ export class CelantureController {
     }
   }
 
-  async getAllFiles(req: Request, res: Response) {
+  async getAllFiles(req: Request, res: Response): Promise<void> {
     try {
       const result = await this.celanturExecutors.getWithQuery(req, res)
       res.send(result)

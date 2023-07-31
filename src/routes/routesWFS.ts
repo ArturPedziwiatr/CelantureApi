@@ -6,7 +6,7 @@ export default function routerWFS(container: Container) {
     const route = express.Router()
     const controller = container.get<any>(MapTypes.Http.Controller.WFS)
     route.get(
-      '/getWFS',
+      '/getWFSFeatures',
       (req, res) => controller.getWFSFeatures(req, res),
     )
 
