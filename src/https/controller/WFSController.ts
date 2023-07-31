@@ -13,10 +13,12 @@ export class WFSController implements IWFSController {
     @inject(MapTypes.Services.WFSService) protected wfsService: IWFSService,
   ) {}
 
-  async getWFSFeatures(req: Request, res: Response): Promise<void> {
+  async getFeaturesList(req: Request, res: Response): Promise<void> {
     try {
       const validator = this.validator(VALIDATOR_TYPES.WFSController.getWFSFeatures)
       const input = await validator.validate(req.body)
+      const result = await this.wfsService.getFeaturesList(input)
+      res.status(200).send(JSON.stringify(result))
     } catch(err) {
       res.send(err)
     }

@@ -47,9 +47,8 @@
           "avoid-escape"
       ],
       "semicolon": [
-          true,
-          "always",
-          "ignore-bound-class-methods"
+          false,
+          "always"
       ],
       "object-curly-spacing": true,
       "whitespace": [

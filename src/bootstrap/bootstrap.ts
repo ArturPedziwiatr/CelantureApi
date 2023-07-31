@@ -22,6 +22,7 @@ export function bootstrap(container: Container, app: Express) {
   bootstrapWFS(container)
   bootstrapCelanture(container)
   bootstrapValidators(container)
+
   container.bind<any>(MapTypes.Routes.Manager).toConstantValue(new RouterManager(app, container))
 }
 
