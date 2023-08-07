@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@camptocamp/ogc-client": "^1.0.0",
+    "@types/cors": "^2.8.13",
     "axios": "^1.4.0",
     "build-url-ts": "^6.1.5",
     "connect-busboy": "^1.0.0",

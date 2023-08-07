@@ -13,6 +13,10 @@ import { MapTypes } from '@MapTypes'
 import { Express } from 'express'
 import { bootstrapValidators } from '@/bootstrap/bootstrapValidators'
 import { WFSService } from '@/services/WFS/WFSService'
+import { WMSController } from '@Controller/WMSController'
+import { IWMSController } from '@/interface/WMS/IWMSController';
+import { IWFSController } from '@/interface/WFS/IWFSController';
+import { IWFSService } from '@/interface/WFS/IWFSService';
 
 const config = parse(fs.readFileSync('./api-config.yml', 'utf-8'))
 export function bootstrap(container: Container, app: Express) {
@@ -20,18 +24,27 @@ export function bootstrap(container: Container, app: Express) {
   container.bind<any>(MapTypes.Http.Middleware.Multer).to(MulterMIddleware)
   
   bootstrapWFS(container)
+  bootstrapWMS(container)
   bootstrapCelanture(container)
   bootstrapValidators(container)
-  container.bind<any>(MapTypes.Routes.Manager).toConstantValue(new RouterManager(app, container))
+  bootstrapRoutes(app, container)
+}
+
+export function bootstrapWMS(container: Container) {
+  container.bind<IWMSController>(MapTypes.Http.Controller.WMS).to(WMSController)
 }
 
 export function bootstrapWFS(container: Container) {
-  container.bind<any>(MapTypes.Http.Controller.WFS).to(WFSController)
-  container.bind<any>(MapTypes.Services.WFSService).to(WFSService)
+  container.bind<IWFSController>(MapTypes.Http.Controller.WFS).to(WFSController)
+  container.bind<IWFSService>(MapTypes.Services.WFSService).to(WFSService)
 }
 
 export function bootstrapCelanture(container: Container) {
   container.bind<any>(MapTypes.Http.Middleware.Celanture).to(CelantureMiddleware)
   container.bind<any>(MapTypes.Http.Controller.Celanture).to(CelantureController)
   container.bind<any>(MapTypes.Executors.Celanture).to(CelantureExecutors)
+}
+
+export function bootstrapRoutes(app: Express ,container: Container) {
+  container.bind<any>(MapTypes.Routes.Manager).toConstantValue(new RouterManager(app, container))
 }

@@ -5,6 +5,7 @@ export const MapTypes = {
     Controller: {
       Celanture: Symbol.for('CelantureController'),
       WFS: Symbol.for('WFSController'),
+      WMS: Symbol.for('WMSController'),
     },
     Middleware: {
       Celanture: Symbol.for('CelantureMiddleware'),
