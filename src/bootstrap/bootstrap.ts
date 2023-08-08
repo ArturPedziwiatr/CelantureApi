@@ -22,7 +22,7 @@ const config = parse(fs.readFileSync('./api-config.yml', 'utf-8'))
 export function bootstrap(container: Container, app: Express) {
   container.bind<any>(MapTypes.Config).toConstantValue(new AppConfig(config))
   container.bind<any>(MapTypes.Http.Middleware.Multer).to(MulterMIddleware)
-  
+
   bootstrapWFS(container)
   bootstrapWMS(container)
   bootstrapCelanture(container)
