@@ -14,30 +14,30 @@ export class CelantureExecutors {
     @inject(MapTypes.Config) protected appConfig: IAppConfig
   ) {}
 
-  async postFile(req: IRequestFile, res: Response, path = req.path) {
-    try {
-      const { headers, query, fileMetadata, path }  = req
-      const file = fs.readFileSync(fileMetadata.path)
-      const url = buildUrl(this.appConfig.getCelanturURL(),{
-        path,
-        queryParams: query as IQueryParams,
-      })
-      console.info(url)
-      fs.unlink(fileMetadata.path, (err) => {
-        if (err) throw err 
-      })
-      const { data } = await axios.post(
-        url,
-        file,
-        { headers }
-      )
-      const { file_id } = data as any
-      return file_id
-    } catch (err: any) {
-      console.error(err.data);
-      res.send(axiosError(err))
-    }
-  }
+  // async postFile(req: IRequestFile, res: Response, path = req.path) {
+  //   try {
+  //     const { headers, query, file, path }  = req
+  //     fs.readFileSync(file.path)
+  //     const url = buildUrl(this.appConfig.getCelanturURL(),{
+  //       path,
+  //       queryParams: query as IQueryParams,
+  //     })
+  //     console.info(url)
+  //     fs.unlink(fileMetadata.path, (err) => {
+  //       if (err) throw err 
+  //     })
+  //     const { data } = await axios.post(
+  //       url,
+  //       file,
+  //       { headers }
+  //     )
+  //     const { file_id } = data as any
+  //     return file_id
+  //   } catch (err: any) {
+  //     console.error(err.data);
+  //     res.send(axiosError(err))
+  //   }
+  // }
 
   async getFile(req: Request, res: Response, path = req.path) {
     try {

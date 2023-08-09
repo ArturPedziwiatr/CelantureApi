@@ -6,6 +6,7 @@ export const MapTypes = {
       Celanture: Symbol.for('CelantureController'),
       WFS: Symbol.for('WFSController'),
       WMS: Symbol.for('WMSController'),
+      GeoJson: Symbol.for('GeoJsonController'),
     },
     Middleware: {
       Celanture: Symbol.for('CelantureMiddleware'),
@@ -17,6 +18,7 @@ export const MapTypes = {
   },
   Services: {
     WFSService: Symbol.for('WFSService'),
+    GeoJson: Symbol.for('GeoJsonService'),
   },
   Routes: {
     Manager: Symbol.for('RoutesManager'),

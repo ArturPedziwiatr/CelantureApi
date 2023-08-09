@@ -1,6 +1,7 @@
-import routesCelantur  from '@/routes/routesCelanture';
+import routesCelantur from '@/routes/routesCelanture';
 import routesWFS from '@/routes/routesWFS'
 import routesWMS from '@/routes/routesWMS'
+import routesGeoJson from '@/routes/routesGeoJson'
 import { Container, injectable } from 'inversify';
 import { Express } from 'express'
 
@@ -11,8 +12,9 @@ export class RouterManager {
       console.log(req.body)
       res.send('Everything is good')
     })
-    app.use('/v1/celantur', routesCelantur(container))
-    app.use('/v1/wfs', routesWFS(container))
+    // app.use('/v1/celantur', routesCelantur(container))
+    // app.use('/v1/wfs', routesWFS(container))
     app.use('/v1/wms', routesWMS(container))
+    app.use('/v1/geojson', routesGeoJson(container))
   }
 }
