@@ -9,7 +9,7 @@ export default function(container: Container) {
   const controller = container.get<GeoJsonController>(MapTypes.Http.Controller.GeoJson)
   const multerMiddleware = container.get<MulterMIddleware>(MapTypes.Http.Middleware.Multer);
 
-  router.post('/upload', multerMiddleware.filesUpload().single('file'), controller.upload)
+  router.post('/upload', multerMiddleware.filesUpload().single('file'), controller.upload.bind(controller))
 
   return router
 }

@@ -19,42 +19,42 @@ import { IWMSController } from '@/interface/WMS/IWMSController';
 import { IWFSController } from '@/interface/WFS/IWFSController';
 import { IWFSService } from '@/interface/WFS/IWFSService';
 import { GeoJsonController } from '@Controller/GeoJsonController';
-import { Asd } from '@Controller/asd'
 
 const config = parse(fs.readFileSync('./api-config.yml', 'utf-8'))
 export function bootstrap(container: Container, app: Express) {
   container.bind<any>(MapTypes.Config).toConstantValue(new AppConfig(config))
   container.bind<any>(MapTypes.Http.Middleware.Multer).to(MulterMIddleware)
 
-  bootstrapWFS(container)
-  bootstrapWMS(container)
-  bootstrapCelanture(container)
-  bootstrapGeoJson(container)
+  bootstrapService(container)
+  bootstrapController(container)
+  bootstrapMiddleware(container)
   bootstrapValidators(container)
-  container.bind<any>(MapTypes.Http.Controller.GeoJson).to(Asd)
+  bootstrapExecutors(container)
   bootstrapRoutes(app, container)
 }
 
-export function bootstrapWMS(container: Container) {
+function bootstrapController(container: Container) {
+  container.bind<any>(MapTypes.Http.Controller.GeoJson).to(GeoJsonController)
   container.bind<IWMSController>(MapTypes.Http.Controller.WMS).to(WMSController)
-}
-
-export function bootstrapWFS(container: Container) {
   container.bind<IWFSController>(MapTypes.Http.Controller.WFS).to(WFSController)
-  container.bind<IWFSService>(MapTypes.Services.WFSService).to(WFSService)
+  container.bind<any>(MapTypes.Http.Controller.Celanture).to(CelantureController)
+  
 }
 
-export function bootstrapGeoJson(container: Container) {
+function bootstrapService(container: Container) {
+  container.bind<IWFSService>(MapTypes.Services.WFSService).to(WFSService)
   container.bind<GeoJsonService>(MapTypes.Services.GeoJson).to(GeoJsonService)
 }
 
-export function bootstrapCelanture(container: Container) {
+function bootstrapMiddleware(container: Container) {
   container.bind<any>(MapTypes.Http.Middleware.Celanture).to(CelantureMiddleware)
-  container.bind<any>(MapTypes.Http.Controller.Celanture).to(CelantureController)
+}
+
+function bootstrapExecutors(container: Container) {
   container.bind<any>(MapTypes.Executors.Celanture).to(CelantureExecutors)
 }
 
-export function bootstrapRoutes(app: Express, container: Container) {
+function bootstrapRoutes(app: Express, container: Container) {
   container.bind<any>(MapTypes.Routes.Manager).toConstantValue(new RouterManager(app, container))
 }
 

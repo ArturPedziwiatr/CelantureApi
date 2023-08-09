@@ -7,7 +7,7 @@ import fs from 'fs/promises'
 @injectable()
 export class GeoJsonController {
   constructor(
-    @inject(MapTypes.Services.WFSService) protected service: IGeoJsonService
+    @inject(MapTypes.Services.GeoJson) protected service: IGeoJsonService
   ) { }
 
   public async upload(req: Request, res: Response) {
@@ -16,13 +16,10 @@ export class GeoJsonController {
       const { file } = req
       if (typeof file?.path === 'string') {
         const fileData = await fs.readFile(file.path, { encoding: 'utf-8' })
-        console.log({ fileData })
         const json = JSON.parse(fileData)
-        console.log(this.service);
-
-        console.log({ json })
+        console.log(this);
+        
         const isValid = this.service.validate(json)
-        console.log({ isValid })
 
         if (isValid) return res.sendStatus(200)
 
