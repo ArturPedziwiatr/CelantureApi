@@ -1,7 +1,5 @@
-import routesCelantur  from '@/routes/routesCelanture';
-import routesWFS from '@/routes/routesWFS'
-import routesWMS from '@/routes/routesWMS'
-import { Container, injectable } from 'inversify';
+import routesCelantur from '@/routes/routesCelanture'
+import { Container, injectable } from 'inversify'
 import { Express } from 'express'
 
 @injectable()
@@ -12,7 +10,5 @@ export class RouterManager {
       res.send('Everything is good')
     })
     app.use('/v1/celantur', routesCelantur(container))
-    app.use('/v1/wfs', routesWFS(container))
-    app.use('/v1/wms', routesWMS(container))
   }
 }

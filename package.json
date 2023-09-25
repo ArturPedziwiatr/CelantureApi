@@ -1,8 +1,8 @@
 {
-  "name": "node",
-  "private": true,
+  "name": "celanture-api",
+  "private": false,
   "version": "1.0.0",
-  "description": "",
+  "description": "NodeJS API to connect with celantur",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -10,8 +10,14 @@
     "build": "tsc && tsc-alias",
     "start": "yarn build && node dist/index.js"
   },
+  "engines": {
+    "node": ">= 14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArturPedziwiatr/CelantureApi"
+  },
   "dependencies": {
-    "@camptocamp/ogc-client": "^1.0.0",
     "@types/cors": "^2.8.13",
     "axios": "^1.4.0",
     "build-url-ts": "^6.1.5",
